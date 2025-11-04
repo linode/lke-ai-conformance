@@ -573,8 +573,9 @@ helm install kuberay-operator kuberay/kuberay-operator --version 1.4.2
 Verify that kuberay-operator pod is running and in Ready state
 
 ```shell
-kubectl get pod
+kubectl get pod -lapp.kubernetes.io/name=kuberay-operator
 ```
+
 ```shell
 NAME                               READY   STATUS    RESTARTS   AGE
 kuberay-operator-87c45b7f8-czg6d   1/1     Running   0          22s
