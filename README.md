@@ -195,7 +195,22 @@ istio-1.27.3/bin/istioctl install --set profile=minimal -y
 Apply sample app to show Gateway API operational
 ````
 kubectl apply -f istio-1.27.3/samples/bookinfo/platform/kube/bookinfo.yaml
-k get gateway bookinfo-gateway
+````
+````
+kubectl get services
+kubectl get pods
+kubectl exec "$(kubectl get pod -l app=ratings -o jsonpath='{.items[0].metadata.name}')" -c ratings -- curl -sS productpage:9080/productpage | grep -o "<title>.*</title>"
+````
+````
+<title>Simple Bookstore App</title>
+````
+
+Apply bookinfo gateway
+````
+kubectl apply -f samples/bookinfo/gateway-api/bookinfo-gateway.yaml
+````
+````
+kubectl get gateway bookinfo-gateway
 ````
 ````
 NAME               CLASS   ADDRESS          PROGRAMMED   AGE
