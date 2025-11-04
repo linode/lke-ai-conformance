@@ -152,7 +152,8 @@ kubectl get resourceclaims
 kubectl get pods
 ````
 
-## Gateway API
+## AI Inference
+### Gateway API in Istio
 
 https://istio.io/latest/docs/setup/getting-started/#gateway-api
 
