@@ -1,13 +1,17 @@
 # lke-ai-conformance
 
+Akamai Cloud LKE (Linode Kubernetes Engine) CNCF Kubernetes 1.34 AI Conformance
+
+CNCF Kubernetes AI Conformance
+
+https://docs.google.com/document/d/1hXoSdh9FEs13Yde8DivCYjjXyxa7j4J8erjZPEGWuzc/edit?tab=t.0
+
 
 ## Deploy LKE with APP Platform
 
 * https://www.linode.com/docs/guides/deploy-llm-for-ai-inferencing-on-apl/#provision-an-lke-cluster
 
 * https://techdocs.akamai.com/app-platform/docs/lke-automatic-install
-*
-* https://www.linode.com/docs/guides/deploy-llm-for-ai-inferencing-on-apl/#install-the-nvidia-gpu-operator
 
 ## Install the NVIDIA GPU Operator
 
@@ -143,7 +147,7 @@ kubectl get pods
 ````
 
 
-# Gateway API
+## Gateway API
 
 https://istio.io/latest/docs/setup/getting-started/#gateway-api
 
@@ -172,9 +176,9 @@ k get gateway bookinfo-gateway
 ````
 NAME               CLASS   ADDRESS          PROGRAMMED   AGE
 bookinfo-gateway   istio   172.234.211.21   True         34m
-```
+````
 
-# Gang Scheduling
+## Gang Scheduling
 
 Install Kueue
 
@@ -219,12 +223,12 @@ team-a      sample-job-team-a-4k2df   Complete   3/3           16s        18s
 team-b      sample-job-team-b-696zj   Complete   3/3           13s        32s
 ````
 
-# Cluster Autoscaling
+## Cluster Autoscaling
 
 https://techdocs.akamai.com/cloud-computing/docs/manage-nodes-and-node-pools#autoscale-automatically-resize-node-pools
 
 
-# Pod Autoscaling
+## Pod Autoscaling
 
 Create Prometheus Rule
 
@@ -279,8 +283,9 @@ for (( c=1; c<=5000; c++ )); do ./vectorAdd; done &
 This scales the deployment to max replicas provided.
 
 
-# Accelerator Metrics
+## Accelerator Metrics
 
+Show the DCGM metrics are installed and available
 
 ```
 kubectl -n gpu-operator get svc
@@ -295,6 +300,9 @@ kubectl port-forward service/nvidia-dcgm-exporter 9400:9400 -n gpu-operator
 
 ```
 curl 127.0.0.1:9400/metrics
+```
+
+```
 Handling connection for 9400
 # HELP DCGM_FI_DEV_SM_CLOCK SM clock frequency (in MHz).
 # TYPE DCGM_FI_DEV_SM_CLOCK gauge
@@ -373,7 +381,9 @@ DCGM_FI_PROF_PCIE_TX_BYTES{gpu="0",UUID="GPU-a8394b51-c086-568a-9f1a-c1e1c934c44
 DCGM_FI_PROF_PCIE_RX_BYTES{gpu="0",UUID="GPU-a8394b51-c086-568a-9f1a-c1e1c934c44c",pci_bus_id="00000000:00:02.0",device="nvidia0",modelName="NVIDIA RTX 4000 Ada Generation",Hostname="lke529760-766837-0a634ab30000",DCGM_FI_DRIVER_VERSION="580.95.05",container="cuda",namespace="default",pod="cuda-75454ffb9f-8ljq7",pod_uid=""} 45987793
 ```
 
-# AI Service Metrics
+## AI Service Metrics
+
+Prometheus is installable and usable on the LKE cluster
 
 https://www.linode.com/docs/guides/deploy-prometheus-operator-with-grafana-on-lke/
 
@@ -381,7 +391,7 @@ https://www.linode.com/docs/guides/deploy-prometheus-operator-with-grafana-on-lk
 # Secure Accelerator Access
 
 
-# KubeRay
+## KubeRay
 
 ### Install KubeRay Operator
 
