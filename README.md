@@ -342,6 +342,42 @@ for (( c=1; c<=5000; c++ )); do ./vectorAdd; done & \
 for (( c=1; c<=5000; c++ )); do ./vectorAdd; done &
 ````
 
+Monitor HPA and pod replicas
+````
+kubectl get hpa
+````
+````
+NAME   REFERENCE         TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+cuda   Deployment/cuda   9/5       1         3         1          3m20s
+````
+
+````
+kubectl get pod -lapp=cuda
+````
+````
+NAME                    READY   STATUS    RESTARTS   AGE
+cuda-75454ffb9f-gv5nc   1/1     Running   0          5m3s
+````
+
+````
+kubectl get hpa
+````
+
+````
+NAME   REFERENCE         TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+cuda   Deployment/cuda   6/5       1         3         3          4m2s
+````
+
+````
+kubectl get pod -lapp=cuda
+````
+````
+NAME                    READY   STATUS    RESTARTS   AGE
+cuda-75454ffb9f-2v6fx   1/1     Running   0          70s
+cuda-75454ffb9f-7z29g   1/1     Running   0          100s
+cuda-75454ffb9f-gv5nc   1/1     Running   0          5m3s
+````
+
 ## Accelerator Metrics
 
 Show the DCGM metrics are installed and available
