@@ -1,6 +1,8 @@
 # lke-ai-conformance
 
 <img src="https://github.com/linode/lke-ai-conformance/blob/main/images/AkamaiCloud-Horizontal.png">
+<img src="https://github.com/linode/lke-ai-conformance/blob/main/images/AkamaiCloud-HorizontalWhite.png">
+
 
 Akamai Cloud LKE (Linode Kubernetes Engine) CNCF Kubernetes 1.34 AI Conformance
 
