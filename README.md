@@ -161,8 +161,17 @@ Tue Nov  4 17:24:18 UTC 2025
 GPU 0: NVIDIA RTX 4000 Ada Generation (UUID: GPU-9d332149-daef-d8e3-1168-b247fd392cbe)
 ````
 
+Show Resource Claim
+````
+kubectl get resourceclaims
+````
+````
+NAME                                                STATE                AGE
+dra-gpu-example-7b9b75dbb9-prgkm-single-gpu-mwr6m   allocated,reserved   74m
+````
 
 ## AI Inference
+
 ### Gateway API in Istio
 
 https://istio.io/latest/docs/setup/getting-started/#gateway-api
