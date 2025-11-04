@@ -118,7 +118,7 @@ kubectl get node -o json | jq '.items[].metadata.labels'
 ## Install Nvidia DRA driver
 ````
 helm repo add nvidia https://helm.ngc.nvidia.com/nvidia && helm repo update
-helm install nvidia-dra-driver-gpu nvidia/nvidia-dra-driver-gpu --namespace nvidia-dra-driver-gpu --create-namespace --values dra-driver-values.yaml
+helm install nvidia-dra-driver-gpu nvidia/nvidia-dra-driver-gpu --namespace nvidia-dra-driver-gpu --create-namespace --values manifests/dra-driver-values.yaml
 ````
 
 ````
@@ -137,8 +137,8 @@ mig.nvidia.com                              4m32s
 ## Test DRA Resource Claims
 
 ````
-kubectl apply -f resource-claim-template.yaml
-kubectl apply -f dra-deployment.yaml
+kubectl apply -f manifests/resource-claim-template.yaml
+kubectl apply -f manifests/dra-deployment.yaml
 ````
 
 ````
@@ -164,13 +164,12 @@ curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.27.3 sh -
 Reset istio to use Gateway API
 
 ````
-cd istio-1.27.3
-bin/istioctl install --set profile=minimal -y
+istio-1.27.3/bin/istioctl install --set profile=minimal -y
 ````
 
 Apply sample app to show Gateway API operational
 ````
-kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+kubectl apply -f istio-1.27.3/samples/bookinfo/platform/kube/bookinfo.yaml
 k get gateway bookinfo-gateway
 ````
 ````
@@ -207,13 +206,13 @@ Install resource Flavor
 ````
 kubectl create namespace team-a
 kubectl create namespace team-b
-kubectl apply -f resource-flavor.yaml
+kubectl apply -f manifests/resource-flavor.yaml
 ````
 
 Create jobs
 ````
-kubectl create -f job-team-b.yaml
-kubectl create -f job-team-b.yaml
+kubectl create -f manifests/job-team-b.yaml
+kubectl create -f manifests/job-team-b.yaml
 ````
 
 ````
@@ -233,13 +232,12 @@ https://techdocs.akamai.com/cloud-computing/docs/manage-nodes-and-node-pools#aut
 Create Prometheus Rule
 
 ```shell
-kubectl apply -f prometheus-rule.yaml
+kubectl apply -f manifests/prometheus-rule.yaml
 ```
 
 Install Prometheus Adapter
 
 ````
-kubectl apply -f prometheus-rule.yaml
 kubectl label servicemonitor -n gpu-operator gpu-operator prometheus=system
 kubectl label servicemonitor -n gpu-operator nvidia-dcgm-exporter prometheus=system
 helm install prometheus-adapter -n monitoring prometheus-community/prometheus-adapter --set prometheus.url="http://po-prometheus.monitoring.svc.cluster.local"
@@ -256,13 +254,13 @@ kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1 | jq -r . | grep cuda_gpu
 Create a deployment
 
 ```shell
-kubectl apply -f cuda-deployment.yaml
+kubectl apply -f manifests/cuda-deployment.yaml
 ```
 
 ### Create HPA to Scale deployment based on GPU Utilization
 
 ```shell
-kubectl apply -f hpa.yaml
+kubectl apply -f manifests/hpa.yaml
 ```
 
 Simulate load on GPU
@@ -279,9 +277,6 @@ for (( c=1; c<=5000; c++ )); do ./vectorAdd; done & \
 for (( c=1; c<=5000; c++ )); do ./vectorAdd; done & \
 for (( c=1; c<=5000; c++ )); do ./vectorAdd; done &
 ```
-
-This scales the deployment to max replicas provided.
-
 
 ## Accelerator Metrics
 
