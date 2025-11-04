@@ -329,7 +329,9 @@ Simulate load on GPU
 
 ```shell
 kubectl exec -it deployment/cuda -- bash
+````
 
+````
 for (( c=1; c<=5000; c++ )); do ./vectorAdd; done & \
 for (( c=1; c<=5000; c++ )); do ./vectorAdd; done & \
 for (( c=1; c<=5000; c++ )); do ./vectorAdd; done & \
@@ -338,28 +340,30 @@ for (( c=1; c<=5000; c++ )); do ./vectorAdd; done & \
 for (( c=1; c<=5000; c++ )); do ./vectorAdd; done & \
 for (( c=1; c<=5000; c++ )); do ./vectorAdd; done & \
 for (( c=1; c<=5000; c++ )); do ./vectorAdd; done &
-```
+````
 
 ## Accelerator Metrics
 
 Show the DCGM metrics are installed and available
 
-```
+````
 kubectl -n gpu-operator get svc
-\NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+````
+````
+NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
 gpu-operator           ClusterIP   10.128.231.34   <none>        8080/TCP   9h
 nvidia-dcgm-exporter   ClusterIP   10.128.20.33    <none>        9400/TCP   9h
-```
+````
 
-```
+````
 kubectl port-forward service/nvidia-dcgm-exporter 9400:9400 -n gpu-operator
-```
+````
 
-```
+````
 curl 127.0.0.1:9400/metrics
-```
+````
 
-```
+````
 Handling connection for 9400
 # HELP DCGM_FI_DEV_SM_CLOCK SM clock frequency (in MHz).
 # TYPE DCGM_FI_DEV_SM_CLOCK gauge
@@ -436,7 +440,7 @@ DCGM_FI_PROF_PCIE_TX_BYTES{gpu="0",UUID="GPU-a8394b51-c086-568a-9f1a-c1e1c934c44
 # HELP DCGM_FI_PROF_PCIE_RX_BYTES The rate of data received over the PCIe bus - including both protocol headers and data payloads - in bytes per second.
 # TYPE DCGM_FI_PROF_PCIE_RX_BYTES gauge
 DCGM_FI_PROF_PCIE_RX_BYTES{gpu="0",UUID="GPU-a8394b51-c086-568a-9f1a-c1e1c934c44c",pci_bus_id="00000000:00:02.0",device="nvidia0",modelName="NVIDIA RTX 4000 Ada Generation",Hostname="lke529760-766837-0a634ab30000",DCGM_FI_DRIVER_VERSION="580.95.05",container="cuda",namespace="default",pod="cuda-75454ffb9f-8ljq7",pod_uid=""} 45987793
-```
+````
 
 ## AI Service Metrics
 
