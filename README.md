@@ -119,7 +119,9 @@ kubectl get node -o json | jq '.items[].metadata.labels'
 
 
 
-## Install Nvidia DRA driver
+## DRA Support
+
+### Install Nvidia DRA driver
 ````
 helm repo add nvidia https://helm.ngc.nvidia.com/nvidia && helm repo update
 helm install nvidia-dra-driver-gpu nvidia/nvidia-dra-driver-gpu --namespace nvidia-dra-driver-gpu --create-namespace --values manifests/dra-driver-values.yaml
@@ -138,7 +140,7 @@ mig.nvidia.com                              4m32s
 ````
 
 
-## Test DRA Resource Claims
+### Test DRA Resource Claims
 
 ````
 kubectl apply -f manifests/resource-claim-template.yaml
@@ -149,7 +151,6 @@ kubectl apply -f manifests/dra-deployment.yaml
 kubectl get resourceclaims 
 kubectl get pods
 ````
-
 
 ## Gateway API
 
