@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: po
+    release: prometheus-operator
+    prometheus: system
+  name: cuda
+spec:
+  groups:
+    - name: gpu-rule-group
+      rules:
+        - record: cuda_gpu
+          expr: DCGM_FI_DEV_GPU_UTIL{exported_pod=~"cuda.*"}
+          labels:
+            namespace: default
+            deployment: cuda
