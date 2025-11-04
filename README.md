@@ -401,7 +401,76 @@ https://www.linode.com/docs/guides/deploy-prometheus-operator-with-grafana-on-lk
 
 ## Secure Accelerator Access
 
+Run kubernetes e2e DRA test suite.
 
+Create two Pods, each is allocated an accelerator resource. Execute a command in one Pod to attempt to access the other Pod’s
+accelerator, and should be denied.
+
+**Step 1**: Make Kubernetes DRA e2e tests
+
+```
+mkdir k8s.io && \
+git clone https://github.com/kubernetes/kubernetes
+```
+```
+git checkout v1.34.1
+```
+```
+make WHAT="ginkgo k8s.io/kubernetes/test/e2e/e2e.test"
+```
+
+**Step 2**: Run multi-container access test
+
+```
+KUBECONFIG=/Users/xxx/.kube/config _output/bin/ginkgo -v -focus='must map configs and devices to the right containers' ./test/e2e
+```
+
+```
+  I1104 12:42:43.374995   58787 e2e.go:109] Starting e2e run "41597bc2-8046-4015-b863-8b98a1109aea" on Ginkgo node 1
+Running Suite: Kubernetes e2e suite - /Users/srust/ws/github.com/linode/lke-ai-conformance/k8s.io/kubernetes/test/e2e
+=====================================================================================================================
+Random Seed: 1762278140 - will randomize all specs
+
+Will run 1 of 7137 specs
+------------------------------
+[sig-node] [DRA] kubelet [Feature:DynamicResourceAllocation] must map configs and devices to the right containers [sig-node, DRA, Feature:DynamicResourceAllocation]
+/Users/.../k8s.io/kubernetes/test/e2e/dra/dra.go:180
+  STEP: Creating a kubernetes client @ 11/04/25 12:42:44.127
+  STEP: Building a namespace api object, basename dra @ 11/04/25 12:42:44.128
+  STEP: Waiting for a default service account to be provisioned in namespace @ 11/04/25 12:42:44.575
+  STEP: Waiting for kube-root-ca.crt to be provisioned in namespace @ 11/04/25 12:42:44.649
+  STEP: selecting nodes @ 11/04/25 12:42:44.726
+  STEP: deploying driver dra-8441.k8s.io on nodes [lke530427-767898-51df6b5f0000] @ 11/04/25 12:42:44.776
+  STEP: wait for plugin registration @ 11/04/25 12:42:47.302
+  STEP: creating *v1.DeviceClass dra-8441-class @ 11/04/25 12:42:49.304
+  STEP: creating *v1.DeviceClass dra-8441-class0 @ 11/04/25 12:42:49.351
+  STEP: creating *v1.DeviceClass dra-8441-class1 @ 11/04/25 12:42:49.395
+  STEP: creating *v1.DeviceClass dra-8441-class2 @ 11/04/25 12:42:49.44
+  STEP: creating *v1.DeviceClass dra-8441-class3 @ 11/04/25 12:42:49.49
+  STEP: creating *v1.DeviceClass dra-8441-class4 @ 11/04/25 12:42:49.529
+  STEP: creating *v1.DeviceClass dra-8441-class5 @ 11/04/25 12:42:49.571
+  STEP: creating *v1.ResourceClaim all @ 11/04/25 12:42:49.608
+  STEP: creating *v1.ResourceClaim container0 @ 11/04/25 12:42:49.654
+  STEP: creating *v1.ResourceClaim container1 @ 11/04/25 12:42:49.698
+  STEP: creating *v1.Pod tester-1 @ 11/04/25 12:42:49.747
+  STEP: delete pods and claims @ 11/04/25 12:42:56.398
+  STEP: deleting *v1.Pod dra-8441/tester-1 @ 11/04/25 12:42:56.438
+  STEP: deleting *v1.ResourceClaim dra-8441/all @ 11/04/25 12:43:00.667
+  STEP: deleting *v1.ResourceClaim dra-8441/container0 @ 11/04/25 12:43:00.716
+  STEP: deleting *v1.ResourceClaim dra-8441/container1 @ 11/04/25 12:43:00.759
+  STEP: waiting for resources on lke530427-767898-51df6b5f0000 to be unprepared @ 11/04/25 12:43:00.807
+  STEP: waiting for claims to be deallocated and deleted @ 11/04/25 12:43:00.808
+  STEP: scaling down driver proxy pods for dra-8441.k8s.io @ 11/04/25 12:43:01.569
+  STEP: Waiting for ResourceSlices of driver dra-8441.k8s.io to be removed... @ 11/04/25 12:43:02.025
+  STEP: Destroying namespace "dra-8441" for this suite. @ 11/04/25 12:43:02.23
+
+Ran 1 of 7137 Specs in 18.904 seconds
+SUCCESS! -- 1 Passed | 0 Failed | 0 Pending | 7136 Skipped
+PASS
+
+Ginkgo ran 1 suite in 42.3242365s
+Test Suite Passed
+```
 
 ## Robust Controller 
 
@@ -466,4 +535,5 @@ Time to compute rounded_trip_distance: 0.4448743859975366
 2025-11-03 18:05:46,335	SUCC cli.py:65 -- -----------------------------------
 2025-11-03 18:05:46,335	SUCC cli.py:66 -- Job 'rayjob-sample-84rdk' succeeded
 2025-11-03 18:05:46,335	SUCC cli.py:67 -- -----------------------------------
+
 ```
