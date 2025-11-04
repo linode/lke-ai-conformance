@@ -307,16 +307,16 @@ helm install prometheus-adapter -n monitoring prometheus-community/prometheus-ad
 
 ### Test Kubernetes Custom Metrics Endpoint
 
-Check for the metrics exposed by DCGM Exporter such as `DCGM_FI_DEV_GPU_UTIL`
-
-```
-kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1 | jq -r . | grep cuda_gpu
-```
-
 Create a deployment
 
 ```shell
 kubectl apply -f manifests/cuda-deployment.yaml
+```
+
+Check for the metrics exposed by DCGM Exporter such as `DCGM_FI_DEV_GPU_UTIL`
+
+```
+kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1 | jq -r . | grep cuda_gpu
 ```
 
 ### Create HPA to Scale deployment based on GPU Utilization
