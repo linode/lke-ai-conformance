@@ -221,18 +221,23 @@ bookinfo-gateway   istio   172.234.211.21   True         34m
 
 Install Kueue
 
-````
-## Create namespace for kueue install
-kubectl create ns  kueue-system
+### Create namespace for kueue install
 
-## Install via helm
+````
+kubectl create ns  kueue-system
+````
+
+### Install via helm
+````
 helm install kueue oci://registry.k8s.io/kueue/charts/kueue --version=0.14.1 --namespace kueue-system --wait --timeout 300s
 ````
 
 Wait until Ready
 ````
 kubectl get deployments -n kueue-system
+````
 
+````
 NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
 kueue-controller-manager   1/1     1            1           63s
 
