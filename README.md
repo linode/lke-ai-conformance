@@ -389,10 +389,11 @@ Prometheus is installable and usable on the LKE cluster
 https://www.linode.com/docs/guides/deploy-prometheus-operator-with-grafana-on-lke/
 
 
-# Secure Accelerator Access
+## Secure Accelerator Access
 
 
-## KubeRay
+
+## Robust Controller 
 
 ### Install KubeRay Operator
 
