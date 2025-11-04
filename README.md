@@ -240,9 +240,13 @@ kubectl get deployments -n kueue-system
 ````
 NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
 kueue-controller-manager   1/1     1            1           63s
+````
 
+````
 kubectl get pods -n kueue-system
+````
 
+````
 NAME                                        READY   STATUS    RESTARTS      AGE
 kueue-controller-manager-59957d6f7d-5sp8v   1/1     Running   2 (74s ago)   78s
 ````
@@ -254,6 +258,16 @@ kubectl create namespace team-b
 kubectl apply -f manifests/resource-flavor.yaml
 ````
 
+Install Cluster Queue
+````
+kubectl apply -f manifests/cluster-queue.yaml
+````
+
+Install Local Queue
+````
+kubectl apply -f manifests/local-queue.yaml
+````
+
 Create jobs
 ````
 kubectl create -f manifests/job-team-b.yaml
@@ -262,6 +276,9 @@ kubectl create -f manifests/job-team-b.yaml
 
 ````
 k get jobs -A
+````
+
+````
 NAMESPACE   NAME                      STATUS     COMPLETIONS   DURATION   AGE
 team-a      sample-job-team-a-4k2df   Complete   3/3           16s        18s
 team-b      sample-job-team-b-696zj   Complete   3/3           13s        32s
